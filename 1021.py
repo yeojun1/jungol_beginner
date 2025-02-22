@@ -1,10 +1,26 @@
 N=int(input())
 M=int(input())
-ans=[]
-def addPart(part, cnt):
-    if 1: pass
+ans=[0]*N
+midGuide=[]
+midComponent=[]
+for _ in range(M):
+    X,Y,K=map(int,input().split())
+    midComponent.append(X)
+    midGuide.append((X,Y,K))
+midGuide.sort()
 
-# addPart 함수 안에는 중간 부품이 입력되면 기본 부품으로 바꿔 추가하고 기본 부품은 그대로 추가하는 코드임
-# 중간 부품이 다른 중간 부품을 참조하면 그 부품 안에서 재귀가 돌아가야 함
-# 중간 부품은 입력에 설명되어 있지만 기본 부품은 설명되어 있지 않음
-# addPart 함수는 위상 정렬 구조임
+def addPart(part, cnt, a):
+    if part not in midComponent:
+        ans[part-1]+=cnt*a
+        return
+    for i in range(M):
+        if midGuide[i][0]==part:
+            addPart(midGuide[i][1], midGuide[i][2], cnt*a)
+
+for j in range(M):
+    if midGuide[j][0]==N:
+        addPart(midGuide[j][1], midGuide[j][2], 1)
+
+for idx,k in enumerate(ans,start=1):
+    if k==0: continue
+    print(idx,k)

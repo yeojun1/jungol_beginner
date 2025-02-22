@@ -24,8 +24,4 @@ for i in range(1, n+1):
     if not visited[i]:
         dfs(i, set([]))
 result.sort()
-# 정수들의 개수 출력하기
-print(len(result))
-# 뽑힌 정수들을 오름차순으로 출력하기
-for i in result:
-    print(i)
+print(len(result),*result,sep='\n')
